@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Shopping Cart</h2>
+  <div *ngIf="cart.items.length > 0; else emptyCart">
+    <ul class="list-group mb-4">
+      <li class="list-group-item" *ngFor="let item of cart.items">
+        Product ID: {{ item.productId }} - Quantity: {{ item.quantity }} - Price: {{ item.price +' DHS' }}
+      </li>
+    </ul>
+    <p>Total: {{ cart.totalPrice +' DHS' }}</p>
+    <button class="btn btn-danger" (click)="clearCart()">Clear Cart</button>
+    <button class="btn btn-success" (click)="orderNow()">Order Now</button>
+  </div>
+  <ng-template #emptyCart>
+    <p>Your cart is empty.</p>
+  </ng-template>
+
+  <div *ngIf="showOrderComponent">
+    <app-order ></app-order>
+  </div>
+</div>

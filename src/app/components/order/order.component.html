@@ -1,0 +1,77 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Order Form</h2>
+  
+    <form *ngIf="showOrderForm" #orderForm="ngForm" (ngSubmit)="passOrder(orderForm)" class="needs-validation" novalidate>
+      <div class="form-group">
+        <label for="customerName">Customer Name:</label>
+        <input 
+          type="text" 
+          id="customerName" 
+          name="customerName" 
+          ngModel 
+          class="form-control" 
+          required 
+          placeholder="Enter your name" />
+        <div class="invalid-feedback">
+          Please provide your name.
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="shippingAddress">Shipping Address:</label>
+        <input 
+          type="text" 
+          id="shippingAddress" 
+          name="shippingAddress" 
+          ngModel 
+          class="form-control" 
+          required 
+          placeholder="Enter your shipping address" />
+        <div class="invalid-feedback">
+          Please provide a shipping address.
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="shippingAddress">Phone Number:</label>
+        <input 
+          type="text" 
+          id="phoneNumber" 
+          name="phoneNumber" 
+          ngModel 
+          class="form-control" 
+          required 
+          placeholder="Enter your phone number" />
+        <div class="invalid-feedback">
+          Please provide a phone number.
+        </div>
+      </div>    
+
+    
+      <button type="submit" class="btn btn-primary" [disabled]="orderForm.invalid">Submit</button>
+    </form>
+  
+    <div *ngIf="orderReceived" class="mt-4 alert alert-success" role="alert">
+      Your order has been received. Thank you!
+    </div>   
+  </div>
+
+  <div *ngIf="showOrderListComponent" class="container mt-4">
+    <h2>List of Orders</h2>
+    <div *ngIf="orders.length > 0; else noOrders">
+      <ul class="list-group mb-4">
+        <li class="list-group-item" *ngFor="let order of orders">
+          <h5>Order Date: {{ order.orderDate |date }}</h5>
+          <p>Shipping Address: {{ order.shippingAddress }}</p>
+          <ul>
+            <li *ngFor="let item of order.items">
+              Product ID: {{ item.productId }} - Quantity: {{ item.quantity }} - Price: {{ item.price }}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <ng-template #noOrders>
+      <p>No orders found for this username.</p>
+    </ng-template>
+  </div>
+  
